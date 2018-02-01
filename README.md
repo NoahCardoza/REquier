@@ -2,7 +2,7 @@
 A handy node module that helps manage large projects.
 
 ### Installation
-`npm i REquire`
+`npm i reequire`
 
 ### Usage
 1. Create a `local-package.json` in the root project directory.
@@ -13,7 +13,7 @@ A handy node module that helps manage large projects.
   }
 ```
 Check out the [local-package.json](local-package.json) for an example.
-3. Don't forget to add `require('REquire');` at the beginning of your entry point file.
+3. Don't forget to add `require('reequire');` at the beginning of your entry point file.
 
 
 ### Example
@@ -34,7 +34,7 @@ Check out the [local-package.json](local-package.json) for an example.
 * `/index.js`:
 
 ```js
-  require('REquire');
+  require('reequire');
   const myModule = require('my-module');
   console.log(myModule.answer); // => 42
 ```
