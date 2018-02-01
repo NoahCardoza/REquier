@@ -1,2 +1,2 @@
 const Module = require('module');
-module.exports = require('./REquire.js')(Module.prototype.require, require('fs'))
+module.exports = require('./Reequire.js')(Module.prototype.require, require('fs'))

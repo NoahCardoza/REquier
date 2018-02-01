@@ -1,11 +1,11 @@
 const assert = require('assert');
 const { readdirSync } = require('fs');
-const REquire = require('../REquire.js');
+const Reequire = require('../Reequire.js');
 const originalRequire = require('module').prototype.require;
 
-REquire(originalRequire, readdirSync);
+Reequire(originalRequire, readdirSync);
 
-describe('REquire', function() {
+describe('Reequire', function() {
   describe("=> The Hitchhiker's Guide to the Galaxy", function() {
     it('It should return an object with question and answer keys.', function() {
       assert.deepEqual(require('thgttg'), {
@@ -26,7 +26,7 @@ describe('REquire', function() {
   })
   describe("=> Missing local-package.json", function() {
     before(() =>
-      REquire(originalRequire, {
+      Reequire(originalRequire, {
         readdirSync: () => []
       })
     );

@@ -1,4 +1,4 @@
-# REquier
+# Reequier
 A handy node module that helps manage large projects.
 
 ### Installation
