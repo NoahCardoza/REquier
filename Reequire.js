@@ -1,16 +1,16 @@
-module.exports = function (originalRequire, readdirSync) {
+module.exports = function (dirname, originalRequire, readdirSync) {
   const { join, parse } = require('path');
 
   const Module = require('module');
-  // const originalRequire = Module.prototype.require//.bind(Module);
 
   Module.prototype.require = function (module) {
-    const { dir, json } = package()
+    const { dir, json } = getPackage()
     if (json[module])
       return originalRequire.apply(this, [join(dir, json[module])]);
     else
       return originalRequire.apply(this, [module]);
   };
+  Module.prototype.require.reequire = true;
 
   const searchDir = (dir) =>
     readdirSync(dir)
@@ -19,24 +19,24 @@ module.exports = function (originalRequire, readdirSync) {
     [0];
 
   const findPackage = () => {
-    let dir = __dirname;
-    let pack = undefined;
-    while (dir != '/' && !(pack = searchDir(dir)))
+    let dir = dirname || __dirname;
+    let packageFile = undefined;
+    while (dir != '/' && !(packageFile = searchDir(dir)))
       dir = parse(dir).dir
-    if (!pack)
+    if (!packageFile)
       throw new Error('No local-package.json file found.')
     return {
       dir: dir,
-      json: originalRequire(pack)
+      json: originalRequire(packageFile)
     };
   }
 
-  const package = (() => {
-    let pack = undefined
+  const getPackage = (() => {
+    let data = undefined
     return () =>
-      (pack
-        ? pack
-        : (pack = findPackage())
+      (data
+        ? data
+        : (data = findPackage())
       )
   })()
 };
